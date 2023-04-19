@@ -1,0 +1,11 @@
+Bootstrap
+Popper.js
+Axios
+Chart.js
+Fullcalendar
+Datatables or ImpetusDatatables
+AOS.js
+Fotografia
+Mapas
+
+Login
