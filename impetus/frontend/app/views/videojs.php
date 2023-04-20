@@ -12,13 +12,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Impetus</title>
+    <title>Impetus - VideoJS</title>
 
     <link href="app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/all.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/solid.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/brands.min.css" rel="stylesheet">
-    <link href="app/vendor/select2/select2@4.1.0.min.css" rel="stylesheet" />
     <link href="app/vendor/videoJs/video-js@8.0.4.css" rel="stylesheet" />
     <link href="app/vendor/videoJs/theme.css" rel="stylesheet"/>
     <!-- Custom styles for this template -->
@@ -40,13 +39,33 @@
         <!--Main content-->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content-padding">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Index</h1>
+            <h1 class="h2">Video.js</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <span data-feather="user" class="align-text-bottom"></span>Ação
               </button>
             </div>
           </div>
+
+          <video
+            id="my-video"
+            class="video-js vjs-theme-forest"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster="app/public/assets/logo.png"
+            data-setup="{}"
+          >
+            <source src="app/public/assets/video.mp4" type="video/mp4"/>
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a
+              web browser that
+              <a href="https://videojs.com/html5-video-support/" target="_blank"
+                >supports HTML5 video</a
+              >
+            </p>
+          </video>
 
         </main>
       </div>
@@ -79,6 +98,7 @@
     <script src="app/vendor/jquery/jquery@3.6.4.min.js"></script>
     <script src="app/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="app/vendor/popperJs/popper@2.11.7.min.js"></script>
+    <script src="app/vendor/videoJs/video@8.0.4.min.js"></script>
 
   </body>
 </html>

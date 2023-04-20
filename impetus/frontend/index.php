@@ -13,7 +13,6 @@ if($systemConfig["status"]=="online"){
 if (isset($_GET["url"])) {
 	$url = explode("/", $_GET["url"]);
 	route($url, $routes);
-	var_dump($url);
 }else{
 	route(['index'], $routes);
 }

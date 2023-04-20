@@ -10,7 +10,7 @@ class Core
         <!--Navbar-->
         <nav class="navbar fixed-top bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="index">
                     <img src="app/public/assets/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
                     Impetus
                 </a>
@@ -48,36 +48,54 @@ class Core
             <ul class="nav flex-column">
               <li class="nav-item">
                 <button class="btn nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#submenu" aria-expanded="false">
-                  <span data-feather="home" class="align-text-bottom"></span>
-                  Dashboard
+                  <i class="fa-solid fa-chart-simple"></i>
+                  Chart.js
                 </button>
                 <div class="collapse" id="submenu">
                   <ul class="nav flex-column bg-sidebar-submenu">
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Submenu Item 1</a>
+                      <a class="nav-link" href="chartjs">Submenu Item 1</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Submenu Item 2</a>
+                      <a class="nav-link" href="chartjs">Submenu Item 2</a>
                     </li>
                   </ul>
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file" class="align-text-bottom"></span>
-                  Calendário
+                <a class="nav-link" href="fullcalendar">
+                  <i class="fa-solid fa-calendar"></i>
+                  Fullcalendar
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="airplay" class="align-text-bottom"></span>
+                <a class="nav-link" href="foto">
+                  <i class="fa-solid fa-camera"></i>
                   Foto
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users" class="align-text-bottom"></span>
+                <a class="nav-link" href="geolocalizacao">
+                  <i class="fa-solid fa-compass"></i>
+                  Geolocalização
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="datatables">
+                  <i class="fa-solid fa-table"></i>
                   Datatables
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="videojs">
+                  <i class="fa-solid fa-film"></i>
+                  Video.js
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sweetalert2">
+                  <i class="fa-solid fa-check"></i>
+                  SweetAlert2
                 </a>
               </li>
             </ul>
@@ -85,25 +103,25 @@ class Core
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
               <span>Relatórios</span>
               <a class="link-secondary" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle" class="align-text-bottom"></span>
+                <i class="fa-solid fa-plus"></i>
               </a>
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  <i class="fa-solid fa-file"></i>
                   Relatório 1
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  <i class="fa-solid fa-file"></i>
                   Relatório 2
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="file-text" class="align-text-bottom"></span>
+                  <i class="fa-solid fa-file"></i>
                   Relatório 3
                 </a>
               </li>

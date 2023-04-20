@@ -12,15 +12,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Impetus</title>
+    <title>Impetus - Fullcalendar</title>
 
     <link href="app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/all.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/solid.min.css" rel="stylesheet">
     <link href="app/vendor/fontAwesome/css/brands.min.css" rel="stylesheet">
-    <link href="app/vendor/select2/select2@4.1.0.min.css" rel="stylesheet" />
-    <link href="app/vendor/videoJs/video-js@8.0.4.css" rel="stylesheet" />
-    <link href="app/vendor/videoJs/theme.css" rel="stylesheet"/>
     <!-- Custom styles for this template -->
     <link href="app/public/css/impetusLayout.css" rel="stylesheet">
     <!-- Favicon -->
@@ -40,13 +37,15 @@
         <!--Main content-->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content-padding">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Index</h1>
+            <h1 class="h2">Fullcalendar</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <span data-feather="user" class="align-text-bottom"></span>Ação
               </button>
             </div>
           </div>
+
+          <div id='calendar'></div>
 
         </main>
       </div>
@@ -79,6 +78,19 @@
     <script src="app/vendor/jquery/jquery@3.6.4.min.js"></script>
     <script src="app/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="app/vendor/popperJs/popper@2.11.7.min.js"></script>
+    <script src="app/vendor/fullcalendar/fullcalendar@6.1.5index.global.min.js"></script>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
 
   </body>
 </html>
