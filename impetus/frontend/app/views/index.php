@@ -43,7 +43,7 @@
             <h1 class="h2">Index</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <span data-feather="user" class="align-text-bottom"></span>Ação
+                <i class="fa-solid fa-bars"></i> Ação
               </button>
             </div>
           </div>
