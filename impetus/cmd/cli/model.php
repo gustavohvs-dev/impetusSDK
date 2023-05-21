@@ -2,7 +2,7 @@
 
 function model($tableName)
 {
-    require "app/config/config.php";
+    require "src/app/config/config.php";
     echo "\nCriando model ({$tableName})";
 
     $snippet = "";
@@ -247,7 +247,7 @@ class '.$functionName.'
 }
 ';
 
-    $arquivo = fopen("app/models/$functionName.php", 'w');
+    $arquivo = fopen("src/app/models/$functionName.php", 'w');
     if($arquivo == false){
         return "\n(500 Internal Server Error) Falha ao criar model (".$functionName.")";
     }else{

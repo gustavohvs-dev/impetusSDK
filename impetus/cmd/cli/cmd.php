@@ -1,7 +1,7 @@
 <?php
 
 function cmd($availableCommands){
-    echo "\n### Comandos disponíveis \n";
+    echo "\n### Avaiable commands \n";
     foreach($availableCommands as $availableCommand){
         echo $availableCommand[0] . " - " . $availableCommand[1] . "\n";
     }
