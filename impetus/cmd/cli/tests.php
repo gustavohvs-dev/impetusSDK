@@ -57,13 +57,13 @@ function tests(){
 
     //Error reporting
     if($qntError == 0){
-        echo "(200 OK) Testes configurado com sucesso. \n";
         echo "\nDica: Para seguir com a configuração, siga os passos abaixo: \n";
         echo "1 - Abra o arquivo 'src/tests/config.php' e defina o endpoint do webservice. \n";
         echo "2.1 - Acesse a pasta 'src' utilizando o comando 'cd src' e execute o comando 'composer test'. \n";
         echo "2.2 - Ou execute o comando 'php impetus.php run test' . \n";
+        echo "\n" . "\033[1;32m" . "(200 OK) Configuração de testes realizada com sucesso. \n" . "\033[0m";
     }else{
-        echo "Verifique os erros, em caso de problemas, verifique a documentação em https://github.com/gustavohvs-dev/impetus. \n";
+        echo "\033[1;31m" . "Verifique os erros, em caso de problemas, verifique a documentação em https://github.com/gustavohvs-dev/impetus. \n" . "\033[0m";
     }
 
     echo "\n";

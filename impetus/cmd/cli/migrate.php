@@ -12,11 +12,11 @@ function tables(){
             $table = "CREATE TABLE ".$tableName." ".$tableData;
             $stmt = $conn->prepare($table);
             if($stmt->execute()){
-                echo "(200 OK) Table '".$tableName."' created successfuly\n";
+                echo "\033[1;32m" . "(200 OK) Table '".$tableName."' created successfuly\n" . "\033[0m";
             }else{
                 $error = $stmt->errorInfo();
                 $error = $error[2];
-                echo "(500 Internal Server Error) ".$error."\n";
+                echo "\033[1;33m" . "(500 Internal Server Error) ".$error."\n" . "\033[0m";
             }
         }
     }
@@ -33,11 +33,11 @@ function data(){
             $data = $databaseClass->$method();
             $stmt = $conn->prepare($data);
             if($stmt->execute()){
-                echo "(200 OK) ".$dataName." created successfuly\n";
+                echo "\033[1;32m" . "(200 OK) ".$dataName." created successfuly\n" . "\033[0m";
             }else{
                 $error = $stmt->errorInfo();
                 $error = $error[2];
-                echo "(500 Internal Server Error) ".$error."\n";
+                echo "\033[1;33m" . "(500 Internal Server Error) ".$error."\n" . "\033[0m";
             }
         }
     }
@@ -55,11 +55,11 @@ function views(){
             $view = "CREATE VIEW vw_".$viewName." AS SELECT " . $viewData;
             $stmt = $conn->prepare($view);
             if($stmt->execute()){
-                echo "(200 OK) View '".$viewName."' created successfuly\n";
+                echo "\033[1;32m" . "(200 OK) View '".$viewName."' created successfuly\n" . "\033[0m";
             }else{
                 $error = $stmt->errorInfo();
                 $error = $error[2];
-                echo "(500 Internal Server Error) ".$error."\n";
+                echo "\033[1;33m" . "(500 Internal Server Error) ".$error."\n" . "\033[0m";
             }
         }
     }

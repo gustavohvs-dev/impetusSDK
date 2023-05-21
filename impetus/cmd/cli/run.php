@@ -13,6 +13,6 @@ function run($scriptName){
         }
     }
     if($founded != true){
-        echo "Comando inválido \n";
+        echo "\033[1;31m" . "(500 Internal Server Error) Comando inválido \n" . "\033[0m";
     }
 }

@@ -15,9 +15,11 @@ require_once "./impetus/cmd/cli/tests.php";
 require_once "./impetus/cmd/cli/run.php";
 
 $availableCommands = [
-    ["init", "Cria a estrutura básica da aplicação"],
-    ["migrate", "Realiza a criação do banco de dados"],
-    ["build", "Cria uma estrutura de model, controller e routes com base em uma tabela"]
+    ["init", "Cria a estrutura básica da aplicação", "php impetus.php init projectName"],
+    ["migrate", "Realiza a criação do banco de dados e migração de dados", "php impetus.php migrate --all"],
+    ["build", "Cria uma estrutura de model, controller e routes com base em uma tabela, assim como todo o CRUD da tabela", "php impetus.php build tableName --all"],
+    ["config", "Realiza uma configuração de ambiente, como por exemplo, configura sua aplicação para uso de testes com PHPUnit automaticamente (--test)", "php impetus.php config --test"],
+    ["run", "Executa um comando pré-definido no arquivo 'impetus.json'", "php impetus.php run test"],
 ];
 
 if(!isset($argv[1])){
