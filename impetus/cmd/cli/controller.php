@@ -54,7 +54,7 @@ function controller($tableName)
                 $columnType = explode(")", $columnType[1]);
                 $typeArgs = $columnType[0];
 
-                if($type == "int" || $type == "tinyint" || $type == "smailint" || $type == "mediumint" || $type == "bigint"){
+                if($type == "int" || $type == "tinyint" || $type == "smallint" || $type == "mediumint" || $type == "bigint"){
                     $ruleArgs = "'type(int)'";
                     $ruleArgs .= ", 'length(".$typeArgs.")'";
                 }elseif($type == "float" || $type == "decimal" || $type == "double" || $type == "real" || $type == "bit" || $type == "serial"){
@@ -68,7 +68,6 @@ function controller($tableName)
                     $ruleArgs = "'type(datetime)'";
                 }elseif($type == "tinytext" || $type == "text" || $type == "mediumtext" || $type == "longtext"){
                     $ruleArgs = "'type(string)', 'specialChar'";
-                    $ruleArgs .= ", 'length(".$typeArgs.")'";
                 }elseif($type == "char" || $type == "varchar"){
                     $ruleArgs = "'type(string)', 'uppercase'";
                     $ruleArgs .= ", 'length(".$typeArgs.")'";
