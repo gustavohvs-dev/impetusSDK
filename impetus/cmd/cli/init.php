@@ -152,7 +152,7 @@ function init($argv){
                 }
             } 
     
-            $arquivo = fopen("src/app/config/server.php", 'w');
+            $arquivo = fopen("src/server.php", 'w');
             if($arquivo == false){
                 echo "(500 Internal Server Error) Falha ao criar arquivo de servidor. \n";
                 $qntError++;

@@ -15,10 +15,24 @@ function tests(){
         echo "Pasta 'tests' já existente. \n";
     }
 
+    if(!is_dir("src/tests/integration")){
+        mkdir("src/tests/integration", 0751);
+        echo "Pasta 'tests/integration' criada. \n";
+    }else{
+        echo "Pasta 'tests/integration' já existente. \n";
+    }
+
+    if(!is_dir("src/tests/unit")){
+        mkdir("src/tests/unit", 0751);
+        echo "Pasta 'tests/unit' criada. \n";
+    }else{
+        echo "Pasta 'tests/unit' já existente. \n";
+    }
+
     /** 
      * Copiando arquivos utilitários
      */
-    if(!copy("impetus/cmd/files/tests/config.php", "src/tests/config.php")){
+    if(!copy("impetus/cmd/files/tests/config.php", "src/tests/integration/config.php")){
         echo "(500 Internal Server Error) Falha ao copiar arquivo 'config.php'. \n";
         $qntError++;
         return null;
@@ -34,12 +48,28 @@ function tests(){
         echo "Arquivo de configuração de testes 'phpunit.xml' criado com sucesso. \n";
     }
 
-    if(!copy("impetus/cmd/files/tests/ServerTest.php", "src/tests/ServerTest.php")){
+    if(!copy("impetus/cmd/files/tests/ServerTest.php", "src/tests/integration/ServerTest.php")){
         echo "(500 Internal Server Error) Falha ao copiar arquivo 'ServerTest.php'. \n";
         $qntError++;
         return null;
     }else{
         echo "Teste 'ServerTest.php' criado com sucesso. \n";
+    }
+
+    if(!copy("impetus/cmd/files/tests/LoginTest.php", "src/tests/integration/LoginTest.php")){
+        echo "(500 Internal Server Error) Falha ao copiar arquivo 'LoginTest.php'. \n";
+        $qntError++;
+        return null;
+    }else{
+        echo "Teste 'LoginTest.php' criado com sucesso. \n";
+    }
+
+    if(!copy("impetus/cmd/files/tests/ImpetusUtilsTest.php", "src/tests/unit/ImpetusUtilsTest.php")){
+        echo "(500 Internal Server Error) Falha ao copiar arquivo 'ImpetusUtilsTest.php'. \n";
+        $qntError++;
+        return null;
+    }else{
+        echo "Teste 'ImpetusUtilsTest.php' criado com sucesso. \n";
     }
 
     if(!copy("impetus/cmd/files/composer.json", "src/composer.json")){
