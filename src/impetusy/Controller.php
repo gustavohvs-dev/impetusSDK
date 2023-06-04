@@ -147,100 +147,88 @@ function wsmethod(){
     require "app/config/config.php";
     $secret = $systemConfig["api"]["token"];
 
-    if($_SERVER["REQUEST_METHOD"] != "GET"){
+    //Coletar bearer token
+    $bearer = ImpetusJWT::getBearerToken();
+    $jwt = ImpetusJWT::decode($bearer, $secret);
+
+    if($jwt->status == 0){
         $response = [
-            "code" => "401 Unauthorized",
+            "code" => "400 Bad request",
             "response" => [
                 "status" => 0,
-                "code" => 401,
-                "info" => "Método não encontrado",
+                "code" => 400,
+                "info" => $jwt->error,
             ]
         ];
         return (object)$response;
     }else{
-        //Coletar bearer token
-        $bearer = ImpetusJWT::getBearerToken();
-        $jwt = ImpetusJWT::decode($bearer, $secret);
-
-        if($jwt->status == 0){
+        $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
+        if($auth->status == 0){
             $response = [
-                "code" => "400 Bad request",
+                "code" => "401 Unauthorized",
                 "response" => [
                     "status" => 0,
-                    "code" => 400,
-                    "info" => $jwt->error,
+                    "code" => 401,
+                    "info" => "Falha ao autenticar",
                 ]
             ];
             return (object)$response;
         }else{
-            $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
-            if($auth->status == 0){
+            /**
+             * Regra de negócio do método
+             */
+            
+            //Validar permissão de usuário
+            if($auth->data["permission"] != "admin"){
                 $response = [
                     "code" => "401 Unauthorized",
                     "response" => [
-                        "status" => 0,
-                        "code" => 401,
-                        "info" => "Falha ao autenticar",
+                        "status" => 1,
+                        "info" => "Usuário não possui permissão para realizar ação"
                     ]
                 ];
                 return (object)$response;
-            }else{
-                /**
-                 * Regra de negócio do método
-                 */
-                
-                //Validar permissão de usuário
-                if($auth->data["permission"] != "admin"){
-                    $response = [
-                        "code" => "401 Unauthorized",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Usuário não possui permissão para realizar ação"
-                        ]
-                    ];
-                    return (object)$response;
-                }
-
-                //Validar ID informado
-                $urlParams = ImpetusUtils::urlParams();
-                if(!isset($urlParams["id"])){
-                    $response = [
-                        "code" => "400 Bad Request",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Parâmetro (id) não informado"
-                        ]
-                    ];
-                    return (object)$response;
-                }
-
-                $validate = ImpetusUtils::validator("id", $urlParams["id"], ["type(int)"]);
-                if($validate["status"] == 0){
-                    $response = [
-                        "code" => "400 Bad Request",
-                        "response" => $validate
-                    ];
-                    return (object)$response;
-                }
-
-                //Realizar busca
-                $buscar = '.$functionName.'::get'.$functionName.'($urlParams["id"]);
-                if($buscar->status == 0){
-                    $response = [
-                        "code" => "404 Not found",
-                        "response" => $buscar
-                    ];
-                    return (object)$response;
-                }else{
-                    $response = [
-                        "code" => "200 OK",
-                        "response" => $buscar
-                    ];
-                    return (object)$response;
-                }
-
-                
             }
+
+            //Validar ID informado
+            $urlParams = ImpetusUtils::urlParams();
+            if(!isset($urlParams["id"])){
+                $response = [
+                    "code" => "400 Bad Request",
+                    "response" => [
+                        "status" => 1,
+                        "info" => "Parâmetro (id) não informado"
+                    ]
+                ];
+                return (object)$response;
+            }
+
+            $validate = ImpetusUtils::validator("id", $urlParams["id"], ["type(int)"]);
+            if($validate["status"] == 0){
+                $response = [
+                    "code" => "400 Bad Request",
+                    "response" => $validate
+                ];
+                return (object)$response;
+            }
+
+            //Realizar busca
+            $buscar = '.$functionName.'::get'.$functionName.'($urlParams["id"]);
+            if($buscar->status == 0){
+                $response = [
+                    "code" => "404 Not found",
+                    "response" => $buscar
+                ];
+                return (object)$response;
+            }else{
+                $response = [
+                    "code" => "200 OK",
+                    "response" => $buscar
+                ];
+                return (object)$response;
+            }
+
+            
         }
     }
 
@@ -287,55 +275,44 @@ function wsmethod(){
     require "app/config/config.php";
     $secret = $systemConfig["api"]["token"];
 
-    if($_SERVER["REQUEST_METHOD"] != "GET"){
+    
+    //Coletar bearer token
+    $bearer = ImpetusJWT::getBearerToken();
+    $jwt = ImpetusJWT::decode($bearer, $secret);
+
+    if($jwt->status == 0){
         $response = [
-            "code" => "401 Unauthorized",
+            "code" => "400 Bad request",
             "response" => [
                 "status" => 0,
-                "code" => 401,
-                "info" => "Método não encontrado",
+                "code" => 400,
+                "info" => $jwt->error,
             ]
         ];
         return (object)$response;
     }else{
-        //Coletar bearer token
-        $bearer = ImpetusJWT::getBearerToken();
-        $jwt = ImpetusJWT::decode($bearer, $secret);
-
-        if($jwt->status == 0){
+        $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
+        if($auth->status == 0){
             $response = [
-                "code" => "400 Bad request",
+                "code" => "401 Unauthorized",
                 "response" => [
                     "status" => 0,
-                    "code" => 400,
-                    "info" => $jwt->error,
+                    "code" => 401,
+                    "info" => "Falha ao autenticar",
                 ]
             ];
             return (object)$response;
         }else{
-            $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
-            if($auth->status == 0){
-                $response = [
-                    "code" => "401 Unauthorized",
-                    "response" => [
-                        "status" => 0,
-                        "code" => 401,
-                        "info" => "Falha ao autenticar",
-                    ]
-                ];
-                return (object)$response;
-            }else{
-                /**
-                 * Regra de negócio do método
-                 */
-                $urlParams = ImpetusUtils::urlParams();
-                $buscar = '.$functionName.'::list'.$functionName.'($urlParams);
-                $response = [
-                    "code" => "200 OK",
-                    "response" => $buscar
-                ];
-                return (object)$response;
-            }
+            /**
+             * Regra de negócio do método
+             */
+            $urlParams = ImpetusUtils::urlParams();
+            $buscar = '.$functionName.'::list'.$functionName.'($urlParams);
+            $response = [
+                "code" => "200 OK",
+                "response" => $buscar
+            ];
+            return (object)$response;
         }
     }
 
@@ -381,88 +358,74 @@ function wsmethod(){
     require "app/config/config.php";
     $secret = $systemConfig["api"]["token"];
 
-    if($_SERVER["REQUEST_METHOD"] != "POST"){
+    //Coletar bearer token
+    $bearer = ImpetusJWT::getBearerToken();
+    $jwt = ImpetusJWT::decode($bearer, $secret);
+
+    if($jwt->status == 0){
         $response = [
-            "code" => "401 Unauthorized",
+            "code" => "400 Bad request",
             "response" => [
                 "status" => 0,
-                "code" => 401,
-                "info" => "Método não encontrado",
+                "code" => 400,
+                "info" => $jwt->error,
             ]
         ];
         return (object)$response;
     }else{
-        //Coletar bearer token
-        $bearer = ImpetusJWT::getBearerToken();
-        $jwt = ImpetusJWT::decode($bearer, $secret);
-
-        if($jwt->status == 0){
+        $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
+        if($auth->status == 0){
             $response = [
-                "code" => "400 Bad request",
+                "code" => "401 Unauthorized",
                 "response" => [
                     "status" => 0,
-                    "code" => 400,
-                    "info" => $jwt->error,
+                    "code" => 401,
+                    "info" => "Falha ao autenticar",
                 ]
             ];
             return (object)$response;
         }else{
-            $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
-            if($auth->status == 0){
+            /**
+             * Regra de negócio do método
+             */
+            
+            //Validar permissão de usuário
+            if($auth->data["permission"] != "admin"){
                 $response = [
                     "code" => "401 Unauthorized",
                     "response" => [
-                        "status" => 0,
-                        "code" => 401,
-                        "info" => "Falha ao autenticar",
+                        "status" => 1,
+                        "info" => "Usuário não possui permissão para realizar ação"
                     ]
                 ];
                 return (object)$response;
-            }else{
-                /**
-                 * Regra de negócio do método
-                 */
-                
-                //Validar permissão de usuário
-                if($auth->data["permission"] != "admin"){
-                    $response = [
-                        "code" => "401 Unauthorized",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Usuário não possui permissão para realizar ação"
-                        ]
-                    ];
-                    return (object)$response;
-                }
+            }
 
-                //Coletar params do body (JSON)
-                $jsonParams = json_decode(file_get_contents("php://input"),false);
+            //Coletar params do body (JSON)
+            $jsonParams = json_decode(file_get_contents("php://input"),false);
 
-                //Validação de campos
-                '.$rules.'
+            //Validação de campos
+            '.$rules.'
 
-                //Organizando dados para a request
-                $data = [
-                    '.$createParams.'
+            //Organizando dados para a request
+            $data = [
+                '.$createParams.'
+            ];
+
+            //Criar dados
+            $request = '.$functionName.'::create'.$functionName.'($data);
+            if($request->status == 0){
+                $response = [
+                    "code" => "400 Bad request",
+                    "response" => $request
                 ];
-
-                //Criar dados
-                $request = '.$functionName.'::create'.$functionName.'($data);
-                if($request->status == 0){
-                    $response = [
-                        "code" => "400 Bad request",
-                        "response" => $request
-                    ];
-                    return (object)$response;
-                }else{
-                    $response = [
-                        "code" => "200 OK",
-                        "response" => $request
-                    ];
-                    return (object)$response;
-                }
-
-
+                return (object)$response;
+            }else{
+                $response = [
+                    "code" => "200 OK",
+                    "response" => $request
+                ];
+                return (object)$response;
             }
         }
     }
@@ -509,101 +472,87 @@ function wsmethod(){
     require "app/config/config.php";
     $secret = $systemConfig["api"]["token"];
 
-    if($_SERVER["REQUEST_METHOD"] != "PUT"){
+    //Coletar bearer token
+    $bearer = ImpetusJWT::getBearerToken();
+    $jwt = ImpetusJWT::decode($bearer, $secret);
+
+    if($jwt->status == 0){
         $response = [
-            "code" => "401 Unauthorized",
+            "code" => "400 Bad request",
             "response" => [
                 "status" => 0,
-                "code" => 401,
-                "info" => "Método não encontrado",
+                "code" => 400,
+                "info" => $jwt->error,
             ]
         ];
         return (object)$response;
     }else{
-        //Coletar bearer token
-        $bearer = ImpetusJWT::getBearerToken();
-        $jwt = ImpetusJWT::decode($bearer, $secret);
-
-        if($jwt->status == 0){
+        $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
+        if($auth->status == 0){
             $response = [
-                "code" => "400 Bad request",
+                "code" => "401 Unauthorized",
                 "response" => [
                     "status" => 0,
-                    "code" => 400,
-                    "info" => $jwt->error,
+                    "code" => 401,
+                    "info" => "Falha ao autenticar",
                 ]
             ];
             return (object)$response;
         }else{
-            $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
-            if($auth->status == 0){
+            /**
+             * Regra de negócio do método
+             */
+            
+            //Validar permissão de usuário
+            if($auth->data["permission"] != "admin"){
                 $response = [
                     "code" => "401 Unauthorized",
                     "response" => [
-                        "status" => 0,
-                        "code" => 401,
-                        "info" => "Falha ao autenticar",
+                        "status" => 1,
+                        "info" => "Usuário não possui permissão para realizar ação"
                     ]
                 ];
                 return (object)$response;
-            }else{
-                /**
-                 * Regra de negócio do método
-                 */
-                
-                //Validar permissão de usuário
-                if($auth->data["permission"] != "admin"){
-                    $response = [
-                        "code" => "401 Unauthorized",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Usuário não possui permissão para realizar ação"
-                        ]
-                    ];
-                    return (object)$response;
-                }
+            }
 
-                //Coletar params do body (JSON)
-                $jsonParams = json_decode(file_get_contents("php://input"),false);
+            //Coletar params do body (JSON)
+            $jsonParams = json_decode(file_get_contents("php://input"),false);
 
-                //Validação de campos
-                $validate = ImpetusUtils::validator("'.$primaryKey.'", $jsonParams->'.$primaryKey.', ["type(int)"]);
-                if($validate["status"] == 0){
-                    $response = [
-                        "code" => "400 Bad Request",
-                        "response" => $validate
-                    ];
-                    return (object)$response;
-                }
-                '.$rules.'
-
-                //Coleta data/hora atual
-                $datetime = ImpetusUtils::datetime();
-
-                //Organizando dados para a request
-                $data = [
-                    "'.$primaryKey.'" => $jsonParams->'.$primaryKey.',
-                    '.$createParams.'
-                    "updatedAt" => $datetime
+            //Validação de campos
+            $validate = ImpetusUtils::validator("'.$primaryKey.'", $jsonParams->'.$primaryKey.', ["type(int)"]);
+            if($validate["status"] == 0){
+                $response = [
+                    "code" => "400 Bad Request",
+                    "response" => $validate
                 ];
+                return (object)$response;
+            }
+            '.$rules.'
 
-                //Atualiza dados
-                $request = '.$functionName.'::update'.$functionName.'($data);
-                if($request->status == 0){
-                    $response = [
-                        "code" => "400 Bad request",
-                        "response" => $request
-                    ];
-                    return (object)$response;
-                }else{
-                    $response = [
-                        "code" => "200 OK",
-                        "response" => $request
-                    ];
-                    return (object)$response;
-                }
+            //Coleta data/hora atual
+            $datetime = ImpetusUtils::datetime();
 
+            //Organizando dados para a request
+            $data = [
+                "'.$primaryKey.'" => $jsonParams->'.$primaryKey.',
+                '.$createParams.'
+                "updatedAt" => $datetime
+            ];
 
+            //Atualiza dados
+            $request = '.$functionName.'::update'.$functionName.'($data);
+            if($request->status == 0){
+                $response = [
+                    "code" => "400 Bad request",
+                    "response" => $request
+                ];
+                return (object)$response;
+            }else{
+                $response = [
+                    "code" => "200 OK",
+                    "response" => $request
+                ];
+                return (object)$response;
             }
         }
     }
@@ -649,101 +598,89 @@ function wsmethod(){
 
     require "app/config/config.php";
     $secret = $systemConfig["api"]["token"];
+    
+    //Coletar bearer token
+    $bearer = ImpetusJWT::getBearerToken();
+    $jwt = ImpetusJWT::decode($bearer, $secret);
 
-    if($_SERVER["REQUEST_METHOD"] != "DELETE"){
+    if($jwt->status == 0){
         $response = [
-            "code" => "401 Unauthorized",
+            "code" => "400 Bad request",
             "response" => [
                 "status" => 0,
-                "code" => 401,
-                "info" => "Método não encontrado",
+                "code" => 400,
+                "info" => $jwt->error,
             ]
         ];
         return (object)$response;
     }else{
-        //Coletar bearer token
-        $bearer = ImpetusJWT::getBearerToken();
-        $jwt = ImpetusJWT::decode($bearer, $secret);
-
-        if($jwt->status == 0){
+        $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
+        if($auth->status == 0){
             $response = [
-                "code" => "400 Bad request",
+                "code" => "401 Unauthorized",
                 "response" => [
                     "status" => 0,
-                    "code" => 400,
-                    "info" => $jwt->error,
+                    "code" => 401,
+                    "info" => "Falha ao autenticar",
                 ]
             ];
             return (object)$response;
         }else{
-            $auth = Auth::validate($jwt->payload->id, $jwt->payload->username);
-            if($auth->status == 0){
+            /**
+             * Regra de negócio do método
+            */
+            
+            //Validar permissão de usuário
+            if($auth->data["permission"] != "admin"){
                 $response = [
                     "code" => "401 Unauthorized",
                     "response" => [
-                        "status" => 0,
-                        "code" => 401,
-                        "info" => "Falha ao autenticar",
+                        "status" => 1,
+                        "info" => "Usuário não possui permissão para realizar ação"
                     ]
                 ];
                 return (object)$response;
-            }else{
-                /**
-                 * Regra de negócio do método
-                */
-                
-                //Validar permissão de usuário
-                if($auth->data["permission"] != "admin"){
-                    $response = [
-                        "code" => "401 Unauthorized",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Usuário não possui permissão para realizar ação"
-                        ]
-                    ];
-                    return (object)$response;
-                }
-
-                //Validar ID informado
-                $urlParams = ImpetusUtils::urlParams();
-                if(!isset($urlParams["id"])){
-                    $response = [
-                        "code" => "400 Bad Request",
-                        "response" => [
-                            "status" => 1,
-                            "info" => "Parâmetro (id) não informado"
-                        ]
-                    ];
-                    return (object)$response;
-                }
-
-                $validate = ImpetusUtils::validator("id", $urlParams["id"], ["type(int)"]);
-                if($validate["status"] == 0){
-                    $response = [
-                        "code" => "400 Bad Request",
-                        "response" => $validate
-                    ];
-                    return (object)$response;
-                }
-
-                //Realizar busca
-                $deletar = '.$functionName.'::delete'.$functionName.'($urlParams["id"]);
-                if($deletar->status == 0){
-                    $response = [
-                        "code" => "400 Bad request",
-                        "response" => $deletar
-                    ];
-                    return (object)$response;
-                }else{
-                    $response = [
-                        "code" => "200 OK",
-                        "response" => $deletar
-                    ];
-                    return (object)$response;
-                }
-
-                
             }
+
+            //Validar ID informado
+            $urlParams = ImpetusUtils::urlParams();
+            if(!isset($urlParams["id"])){
+                $response = [
+                    "code" => "400 Bad Request",
+                    "response" => [
+                        "status" => 1,
+                        "info" => "Parâmetro (id) não informado"
+                    ]
+                ];
+                return (object)$response;
+            }
+
+            $validate = ImpetusUtils::validator("id", $urlParams["id"], ["type(int)"]);
+            if($validate["status"] == 0){
+                $response = [
+                    "code" => "400 Bad Request",
+                    "response" => $validate
+                ];
+                return (object)$response;
+            }
+
+            //Realizar busca
+            $deletar = '.$functionName.'::delete'.$functionName.'($urlParams["id"]);
+            if($deletar->status == 0){
+                $response = [
+                    "code" => "400 Bad request",
+                    "response" => $deletar
+                ];
+                return (object)$response;
+            }else{
+                $response = [
+                    "code" => "200 OK",
+                    "response" => $deletar
+                ];
+                return (object)$response;
+            }
+
+            
         }
     }
 

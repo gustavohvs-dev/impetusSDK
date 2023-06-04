@@ -18,20 +18,24 @@ function routes($tableName)
         fclose($arquivo);
 
         $snippet = "";
+        $rows = count($result);
 
         foreach($result as $line){
+            if (--$rows <= 0) {
+                break;
+            }
             $snippet.= $line[0];
         }
 
 $snippet .= '    //'.$functionName.' routes
-    ["get'.$functionName.'", "app/controllers/'.$functionName.'/get'.$functionName.'.php"],
-    ["list'.$functionName.'", "app/controllers/'.$functionName.'/list'.$functionName.'.php"],
-    ["create'.$functionName.'", "app/controllers/'.$functionName.'/create'.$functionName.'.php"],
-    ["update'.$functionName.'", "app/controllers/'.$functionName.'/update'.$functionName.'.php"],
-    ["delete'.$functionName.'", "app/controllers/'.$functionName.'/delete'.$functionName.'.php"],
-
+    "'.$tableName.'/get" => fn() => Router::get("app/controllers/'.$functionName.'/get'.$functionName.'.php"),
+    "'.$tableName.'/list" => fn() => Router::get("app/controllers/'.$functionName.'/list'.$functionName.'.php"),
+    "'.$tableName.'/new" => fn() => Router::post("app/controllers/'.$functionName.'/create'.$functionName.'.php"),
+    "'.$tableName.'/update" => fn() => Router::put("app/controllers/'.$functionName.'/update'.$functionName.'.php"),
+    "'.$tableName.'/delete" => fn() => Router::delete("app/controllers/'.$functionName.'/delete'.$functionName.'.php"),
 ];
-';
+
+Router::ImpetusRouter($routes);';
 
         $arquivo = fopen("app/routes/routes.php", 'w');
         if($arquivo == false){
