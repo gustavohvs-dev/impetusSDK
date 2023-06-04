@@ -72,7 +72,7 @@ function model($tableName)
 
 $snippet.= '<?php
 
-namespace app\models;
+namespace Impetus\App\Models;
 
 class '.$functionName.'
 {

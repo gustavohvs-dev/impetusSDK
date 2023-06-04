@@ -137,15 +137,10 @@ function controller($tableName)
 
 $snippet= '<?php
 
-//Importando models e middlewares
-include_once "app/models/impetus/ImpetusJWT.php";
-include_once "app/models/impetus/ImpetusUtils.php";
-include_once "app/models/'.$functionName.'.php";
-include_once "app/middlewares/Auth.php";
-use app\models\impetus\ImpetusJWT;
-use app\models\impetus\ImpetusUtils;
-use app\models\\'.$functionName.';
-use app\middlewares\Auth;
+use Impetus\Framework\ImpetusJWT;
+use Impetus\Framework\ImpetusUtils;
+use Impetus\App\Models\\'.$functionName.';
+use Impetus\App\Models\Auth;
 
 function wsmethod(){
 
@@ -282,15 +277,10 @@ echo json_encode($response->response);
 
 $snippet= '<?php
 
-//Importando models e middlewares
-include_once "app/models/impetus/ImpetusJWT.php";
-include_once "app/models/impetus/ImpetusUtils.php";
-include_once "app/models/'.$functionName.'.php";
-include_once "app/middlewares/Auth.php";
-use app\models\impetus\ImpetusJWT;
-use app\models\impetus\ImpetusUtils;
-use app\models\\'.$functionName.';
-use app\middlewares\Auth;
+use Impetus\Framework\ImpetusJWT;
+use Impetus\Framework\ImpetusUtils;
+use Impetus\App\Models\\'.$functionName.';
+use Impetus\App\Models\Auth;
 
 function wsmethod(){
 
@@ -367,7 +357,7 @@ echo json_encode($response->response);
             echo "\033[1;31m"."\n(500 Internal Server Error) Falha ao preencher controller (list".$functionName.")". "\033[0m";
             return false;
         }else{
-            echo "\033[1;32m"."\n(200 OK) Controller list'".$functionName."' criado com sucesso.". "\033[0m";
+            echo "\033[1;32m"."\n(200 OK) Controller list".$functionName." criado com sucesso.". "\033[0m";
         }
     } 
 
@@ -381,15 +371,10 @@ echo json_encode($response->response);
 
 $snippet= '<?php
 
-//Importando models e middlewares
-include_once "app/models/impetus/ImpetusJWT.php";
-include_once "app/models/impetus/ImpetusUtils.php";
-include_once "app/models/'.$functionName.'.php";
-include_once "app/middlewares/Auth.php";
-use app\models\impetus\ImpetusJWT;
-use app\models\impetus\ImpetusUtils;
-use app\models\\'.$functionName.';
-use app\middlewares\Auth;
+use Impetus\Framework\ImpetusJWT;
+use Impetus\Framework\ImpetusUtils;
+use Impetus\App\Models\\'.$functionName.';
+use Impetus\App\Models\Auth;
 
 function wsmethod(){
 
@@ -500,7 +485,7 @@ echo json_encode($response->response);
             echo "\033[1;31m"."\n(500 Internal Server Error) Falha ao preencher controller (create".$functionName.")". "\033[0m";
             return false;
         }else{
-            echo "\033[1;32m"."\n(200 OK) Controller create'".$functionName."' criado com sucesso.". "\033[0m";
+            echo "\033[1;32m"."\n(200 OK) Controller create".$functionName." criado com sucesso.". "\033[0m";
         }
     } 
 
@@ -514,15 +499,10 @@ echo json_encode($response->response);
 
 $snippet= '<?php
 
-//Importando models e middlewares
-include_once "app/models/impetus/ImpetusJWT.php";
-include_once "app/models/impetus/ImpetusUtils.php";
-include_once "app/models/'.$functionName.'.php";
-include_once "app/middlewares/Auth.php";
-use app\models\impetus\ImpetusJWT;
-use app\models\impetus\ImpetusUtils;
-use app\models\\'.$functionName.';
-use app\middlewares\Auth;
+use Impetus\Framework\ImpetusJWT;
+use Impetus\Framework\ImpetusUtils;
+use Impetus\App\Models\\'.$functionName.';
+use Impetus\App\Models\Auth;
 
 function wsmethod(){
 
@@ -646,7 +626,7 @@ echo json_encode($response->response);
             echo "\033[1;31m"."\n(500 Internal Server Error) Falha ao preencher controller (update".$functionName.")". "\033[0m";
             return false;
         }else{
-            echo "\033[1;32m"."\n(200 OK) Controller update'".$functionName."' criado com sucesso.". "\033[0m";
+            echo "\033[1;32m"."\n(200 OK) Controller update".$functionName." criado com sucesso.". "\033[0m";
         }
     } 
 
@@ -660,15 +640,10 @@ echo json_encode($response->response);
 
 $snippet= '<?php
 
-//Importando models e middlewares
-include_once "app/models/impetus/ImpetusJWT.php";
-include_once "app/models/impetus/ImpetusUtils.php";
-include_once "app/models/'.$functionName.'.php";
-include_once "app/middlewares/Auth.php";
-use app\models\impetus\ImpetusJWT;
-use app\models\impetus\ImpetusUtils;
-use app\models\\'.$functionName.';
-use app\middlewares\Auth;
+use Impetus\Framework\ImpetusJWT;
+use Impetus\Framework\ImpetusUtils;
+use Impetus\App\Models\\'.$functionName.';
+use Impetus\App\Models\Auth;
 
 function wsmethod(){
 
@@ -791,7 +766,7 @@ echo json_encode($response->response);
             echo "\033[1;31m"."\n(500 Internal Server Error) Falha ao preencher controller (delete".$functionName.")". "\033[0m";
             return false;
         }else{
-            echo "\033[1;32m"."\n(200 OK) Controller delete'".$functionName."' criado com sucesso.". "\033[0m";
+            echo "\033[1;32m"."\n(200 OK) Controller delete".$functionName." criado com sucesso.". "\033[0m";
             return true;
         }
     } 

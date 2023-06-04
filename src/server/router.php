@@ -1,20 +1,6 @@
 <?php
 
-function serverSnippet($appName){
-
-$snippet = 
-'<?php
-
-//Exibição de erros
-if($systemConfig["status"]=="deploy"){
-	error_reporting(0);
-}elseif($systemConfig["status"]=="dev"){
-	error_reporting(E_ERROR);
-}elseif($systemConfig["status"]=="debug"){
-	error_reporting(E_ALL);
-}else{
-	error_reporting(0);
-}
+require_once "./app/routes/routes.php";
 
 if (isset($_GET["url"])) {
 	$url = explode("/", $_GET["url"]);
@@ -24,7 +10,7 @@ if (isset($_GET["url"])) {
 	$response = [
         "status" => "1",
 		"code" => "200",
-        "info" => "'.$appName.' is working normally",
+        "info" => "Webservice is working normally",
     ];
     header("HTTP/1.1 200 OK");
     header("Content-Type: application/json");
@@ -44,7 +30,7 @@ function route($url, $routes){
 			}else{
 				$response = [
 					"status" => "0",
-					"info" => "Rota não encontrada!",
+					"info" => "Route not found",
 				];
 				header("HTTP/1.1 404 Not Found");
 				header("Content-Type: application/json");
@@ -55,15 +41,10 @@ function route($url, $routes){
 	if($validated == false){
 		$response = [
 			"status" => "0",
-			"info" => "Rota não encontrada!",
+			"info" => "Route not found",
 		];
 		header("HTTP/1.1 404 Not Found");
 		header("Content-Type: application/json");
 		echo json_encode($response);
 	}
-}
-';
-
-return $snippet;
-
 }
