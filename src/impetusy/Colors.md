@@ -1,3 +1,5 @@
+# Código de cores
+
 $cor_reset 			= "\033[0m";
 
 $cor_texto['success']	= "\033[1;32m";

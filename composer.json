@@ -1,0 +1,17 @@
+{
+    "name": "impetus/framework",
+    "description": "Impetus Framework SDK",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Impetus\\Framework\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gustavo Soares",
+            "email": "gustavohvs.dev@gmail.com"
+        }
+    ],
+    "require": {}
+}

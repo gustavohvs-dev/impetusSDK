@@ -1,8 +1,8 @@
 <?php 
 
-namespace app\models\impetus;
+namespace Impetus\Framework;
 
-include_once "app/models/impetus/ImpetusUtils.php";
+use Impetus\Framework\ImpetusUtils;
 
 class ImpetusJWT extends ImpetusUtils
 {

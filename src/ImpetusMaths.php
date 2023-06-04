@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\models\impetus;
+namespace Impetus\Framework;
 
 class ImpetusMaths
 {
