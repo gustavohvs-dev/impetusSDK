@@ -28,11 +28,11 @@ function routes($tableName)
         }
 
 $snippet .= '    //'.$functionName.' routes
-    "'.$tableName.'/get" => fn() => Router::get("app/controllers/'.$functionName.'/get'.$functionName.'.php"),
-    "'.$tableName.'/list" => fn() => Router::get("app/controllers/'.$functionName.'/list'.$functionName.'.php"),
-    "'.$tableName.'/new" => fn() => Router::post("app/controllers/'.$functionName.'/create'.$functionName.'.php"),
-    "'.$tableName.'/update" => fn() => Router::put("app/controllers/'.$functionName.'/update'.$functionName.'.php"),
-    "'.$tableName.'/delete" => fn() => Router::delete("app/controllers/'.$functionName.'/delete'.$functionName.'.php"),
+    "'.$tableName.'/get" => fn() => Router::get("app/controllers/'.$tableName.'/get'.$functionName.'.php"),
+    "'.$tableName.'/list" => fn() => Router::get("app/controllers/'.$tableName.'/list'.$functionName.'.php"),
+    "'.$tableName.'/create" => fn() => Router::post("app/controllers/'.$tableName.'/create'.$functionName.'.php"),
+    "'.$tableName.'/update" => fn() => Router::put("app/controllers/'.$tableName.'/update'.$functionName.'.php"),
+    "'.$tableName.'/delete" => fn() => Router::delete("app/controllers/'.$tableName.'/delete'.$functionName.'.php"),
 ];
 
 Router::ImpetusRouter($routes);';

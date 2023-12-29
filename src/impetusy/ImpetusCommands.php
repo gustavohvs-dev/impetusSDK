@@ -1,6 +1,6 @@
 <?php
 
-namespace Impetus\Framework\Impetusy;
+namespace Impetus\Framework\impetusy;
 
 class ImpetusCommands
 {
